@@ -27,16 +27,16 @@ function loadImage(fileName) {
   });
 }
 
-loadImage("./assets/Goal.png").then((img) => {
+loadImage("./Assets/Goal.png").then((img) => {
   window.sprites["Goal"] = img;
 });
-loadImage("./assets/Fertiliser.png").then((img) => {
+loadImage("./Assets/Fertiliser.png").then((img) => {
   window.sprites["Fertiliser"] = img;
 });
-loadImage("./assets/Soil.png").then((img) => {
+loadImage("./Assets/Soil.png").then((img) => {
   window.sprites["Soil"] = img;
 });
-loadImage("./assets/Wall.png").then((img) => {
+loadImage("./Assets/Wall.png").then((img) => {
   window.sprites["Wall"] = img;
 });
 
