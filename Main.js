@@ -62,6 +62,9 @@ loadImage("./Assets/Player.png").then((img) => {
 loadImage("./Assets/Concrete.png").then((img) => {
   window.sprites["Concrete"] = img;
 });
+loadImage("./Assets/Rock.png").then((img) => {
+  window.sprites["Rock"] = img;
+});
 
 loadAudio("./Assets/Bump.wav").then((snd) => {
   window.sounds["Bump"] = snd;
@@ -80,6 +83,9 @@ loadAudio("./Assets/Reroot.wav").then((snd) => {
 });
 loadAudio("./Assets/Fertilised.wav").then((snd) => {
   window.sounds["Fertilised"] = snd;
+});
+loadAudio("./Assets/Reset.wav").then((snd) => {
+  window.sounds["Reset"] = snd;
 });
 
 

@@ -7,6 +7,5 @@ export default class Goal extends GameObject {
 
   onTouch(level, pos) {
     level.complete = true;
-    console.log("GOAL!")
   }
 }

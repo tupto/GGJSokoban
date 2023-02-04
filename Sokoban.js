@@ -7,39 +7,54 @@ const LEFT = 3;
 
 const LEVEL_ONE =
 "        \n"+
-"        \n"+
-"   o    \n"+
-"        \n"+
-"   .    \n"+
-"        \n"+
-"   g    \n"+
-"        ";
-
-const LEVEL_TWO =
-"        \n"+
-"        \n"+
-"  o f   \n"+
+"  o     \n"+
 "        \n"+
 "        \n"+
 "  .  g  \n"+
 "        \n"+
+"        \n"+
+"        ";
+
+const WINDY_LEVEL = 
+"o  fffff\n"+
+"#######f\n"+
+"ffffff#f\n"+
+"f####f#f\n"+
+"f#g##f#f\n"+
+"f#ffff#f\n"+
+"f######f\n"+
+"ffffffff";
+
+const LEVEL_TWO =
+"        \n"+
+"        \n"+
+"  o  f  \n"+
+"        \n"+
+"        \n"+
+"  .   g \n"+
+"        \n"+
 "        ";
 
 const LEVEL_THREE =
-"o ffffff\n"+
-"       f\n"+
-"       f\n"+
-"       f\n"+
-"   .   f\n"+
-"       f\n"+
-"       f\n"+
-"      g ";
+"o      f\n"+
+"D       \n"+
+"f       \n"+
+"f       \n"+
+"f       \n"+
+"f       \n"+
+"f    g  \n"+
+"f        ";
+
+
 
 const LEVELS = [
   LEVEL_ONE,
+  WINDY_LEVEL,
   LEVEL_TWO,
-  LEVEL_THREE
-]
+  LEVEL_THREE,
+];
+
+const RESET_KEY = 81;
 
 export default class Sokoban {
   constructor(ctx) {
@@ -49,18 +64,27 @@ export default class Sokoban {
   }
 
   init() {
-    this.level.push([3,1],[0,1])
   }
 
   reset() {
   }
 
   update() {
+    if (RESET_KEY in window.pressedKeys && window.pressedKeys[RESET_KEY]%20 == 0) {
+      this.level = new Level(LEVELS[this.levelInd]);
+      if (window.sounds["Reset"] !== undefined) {
+        window.sounds["Reset"].currentTime = 0;
+        window.sounds["Reset"].play();
+      }
+    }
+
     let complete = this.level.update();
 
     if (complete) {
-      if (window.sounds["LevelComplete"] !== undefined)
+      if (window.sounds["LevelComplete"] !== undefined) {
+        window.sounds["LevelComplete"].currentTime = 0;
         window.sounds["LevelComplete"].play();
+      }
       this.level = new Level(LEVELS[++this.levelInd]);
     }
   }

@@ -2,6 +2,7 @@ import Wall from "./Objects/Wall.js";
 import Soil from "./Objects/Soil.js";
 import Fertiliser from "./Objects/Fertiliser.js";
 import Goal from "./Objects/Goal.js";
+import Rock from "./Objects/Rock.js";
 import Player from "./Player.js";
 import PlayerSegment from "./Objects/PlayerSegment.js";
 
@@ -31,47 +32,48 @@ export default class Level {
   push(pos, dir) {
     let x = pos[0];
     let y = pos[1];
-    
-    // Calculate direction offset values
     let dirX = dir[0];
     let dirY = dir[1];
+
+    let curPos = pos;
+    let nextPos = [x + dirX, y + dirY];
     
     // Check if move is within bounds of the grid
-    if (y + dirY < 0 || y + dirY >= this.grid.length ||
-        x + dirX < 0 || x + dirX >= this.grid[0].length ||
-        y + dirY*2 < 0 || y + dirY >= this.grid.length ||
-        x + dirX*2 < 0 || x + dirX >= this.grid[0].length) {
+    if (curPos[0] < 0 || curPos[0] >= this.grid[0].length ||
+        curPos[1] < 0 || curPos[1] >= this.grid.length ||
+        nextPos[0] < 0 || nextPos[0] >= this.grid[0].length ||
+        nextPos[1] < 0 || nextPos[1] >= this.grid.length) {
       return false;
     }
     
-    let obj = this.grid[y + dirY][x + dirX];
+    let objects = this.objectsAtPos(pos);
+    let pushables = [];
+    for (const obj of objects) {
+      if (obj.solid && !obj.pushable)
+        return false;
+      
+      if (obj.pushable)
+        pushables.push(obj);
+    }
+
+    if (this.posIsPushable(nextPos)) {
+      if (!push(curPos, dir)) {
+        return false;
+      }
+    }
     
-    // Check if destination cell is not a solid object
-    if (obj.solid) {
+    if (this.posIsSolid(nextPos)) {
       return false;
     }
-    
-    // Check if next cell in push direction is a pushable object
-    if (this.grid[y + dirY * 2][x + dirX * 2].pushable) {
-      // Recursively call push function on next pushable object
-      if (!push([y + dirY, x + dirX], dir)) {
-        return false;
-      }
-      
-      let box = grid[y + dirY * 2][x + dirX * 2];
-      // Check if destination of the box is not a solid object
-      if (this.grid[y + dirY * 3][x + dirX * 3].solid) {
-        return false;
-      }
-      
-      // Update grid with new box position
-      this.grid[y + dirY * 2][x + dirX * 2] = " ";
-      this.grid[y + dirY * 3][x + dirX * 3] = box;
-    }
+
+    this.grid[curPos[1]][curPos[0]] = this.grid[curPos[1]][curPos[0]].filter((el) => {
+      return !pushables.includes(el);
+    });
+    this.grid[nextPos[1]][nextPos[0]] = this.grid[nextPos[1]][nextPos[0]].concat(pushables);
     
     // Update grid with new player position
-    this.grid[y][x] = " ";
-    this.grid[y + dirY][x + dirX] = "@";
+    //this.grid[y][x] = " ";
+    //this.grid[y + dirY][x + dirX] = "@";
     
     return true;
   }
@@ -106,6 +108,13 @@ export default class Level {
           case '.':
             this.grid[i][j].push(new Soil());
             break;
+          case 'r':
+            this.grid[i][j].push(new Rock());
+            break;
+          case 'D':
+            this.grid[i][j].push(new Fertiliser());
+            this.grid[i][j].push(new Rock());
+            break;
         }
       }
     }
@@ -130,10 +139,14 @@ export default class Level {
   }
 
   posIsPushable(pos) {
-    for (const obj of this.objectsAtPos(pos))
+    let pushable = false;
+    for (const obj of this.objectsAtPos(pos)) {
       if (obj.pushable)
-        return true;
-    return false;
+        pushable = true;
+      else if (obj.solid)
+        return false;
+    }
+    return pushable;
   }
 
   removeObject(pos, obj) {

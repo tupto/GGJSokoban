@@ -17,7 +17,7 @@ export default class Player {
     this.rootPos = pos;
     this.endPos = pos;
     this.curLength = 0;
-    this.maxLength = 2;
+    this.maxLength = 3;
     this.prevDir = UP;
     let rootSegment = new PlayerSegment("ROOT_S");
     this.directions = [];
@@ -72,17 +72,30 @@ export default class Player {
   attemptMove(dir) {
     let pos = [dir[0] + this.endPos[0], dir[1] + this.endPos[1]];
     
-    if (this.level.posIsSolid(pos)) {
-      if (window.sounds["Bump"] !== undefined)
+    let solid = this.level.posIsSolid(pos);
+    let pushable = this.level.posIsPushable(pos);
+
+    if (solid && !pushable) {
+      if (window.sounds["Bump"] !== undefined) {
+        window.sounds["Bump"].currentTime = 0;
         window.sounds["Bump"].play();
+      }
       return false;
     }
-    else if (this.level.posIsPushable(pos)) {
-
-    }
     else {
-      if (window.sounds["Grow"] !== undefined)
+      if (this.level.posIsPushable(pos))
+        if (!this.level.push(pos, dir)) {
+          if (window.sounds["Bump"] !== undefined) {
+            window.sounds["Bump"].currentTime = 0;
+            window.sounds["Bump"].play();
+          }
+          return false;
+        }
+
+      if (window.sounds["Grow"] !== undefined) {
+        window.sounds["Grow"].currentTime = 0;
         window.sounds["Grow"].play();
+      }
       
       let prevPos = pos;
       this.endPos = pos;
@@ -204,14 +217,18 @@ export default class Player {
     this.endPos[0] -= dir[0];
     this.endPos[1] -= dir[1];
     
-    if (window.sounds["Shrink"] !== undefined)
+    if (window.sounds["Shrink"] !== undefined) {
+      window.sounds["Shrink"].currentTime = 0;
       window.sounds["Shrink"].play();
+    }
   }
 
   reroot() {
     if (this.curLength == 0 || !this.level.posIsSoil(this.endPos)) {
-      if (window.sounds["Bump"] !== undefined)
+      if (window.sounds["Bump"] !== undefined) {
+        window.sounds["Bump"].currentTime = 0;
         window.sounds["Bump"].play();
+      }
       return false;
     }
 
@@ -235,8 +252,10 @@ export default class Player {
     this.segments[0].segmentType = this.dirToRoot(this.directions[0]);
     this.segments[this.segments.length-1].segmentType = this.dirToTip(this.directions[this.directions.length-1]);
 
-    if (window.sounds["Reroot"] !== undefined)
+    if (window.sounds["Reroot"] !== undefined) {
+      window.sounds["Reroot"].currentTime = 0;
       window.sounds["Reroot"].play();
+    }
     
     return true;
   }
