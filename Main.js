@@ -11,7 +11,8 @@ var game = new Sokoban(ctx);
 
 window.pressedKeys = {};
 addEventListener("keydown", (e) => {
-  window.pressedKeys[e.keyCode] = 0;
+  if (!(e.keyCode in window.pressedKeys))
+    window.pressedKeys[e.keyCode] = 0;
 }, false);
 addEventListener("keyup", (e) => {
   delete window.pressedKeys[e.keyCode];
@@ -58,9 +59,24 @@ loadImage("./Assets/Wall.png").then((img) => {
 loadImage("./Assets/PlayerSegment.png").then((img) => {
   window.sprites["PlayerSegment"] = img;
 });
+loadImage("./Assets/Concrete.png").then((img) => {
+  window.sprites["Concrete"] = img;
+});
 
 loadAudio("./Assets/Bump.wav").then((snd) => {
   window.sounds["Bump"] = snd;
+});
+loadAudio("./Assets/Grow.wav").then((snd) => {
+  window.sounds["Grow"] = snd;
+});
+loadAudio("./Assets/Shrink.wav").then((snd) => {
+  window.sounds["Shrink"] = snd;
+});
+loadAudio("./Assets/LevelComplete.wav").then((snd) => {
+  window.sounds["LevelComplete"] = snd;
+});
+loadAudio("./Assets/Reroot.wav").then((snd) => {
+  window.sounds["Reroot"] = snd;
 });
 
 var prevTime = Date.now();
@@ -75,7 +91,7 @@ function updateGame() {
   game.update(delta / 1000);
   game.render();
 
-  for (const i in Object.keys(window.pressedKeys)) {
+  for (const i of Object.keys(window.pressedKeys)) {
     window.pressedKeys[i]++;
   }
 

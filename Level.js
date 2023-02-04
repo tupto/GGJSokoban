@@ -2,7 +2,6 @@ import Wall from "./Objects/Wall.js";
 import Soil from "./Objects/Soil.js";
 import Fertiliser from "./Objects/Fertiliser.js";
 import Goal from "./Objects/Goal.js";
-import PlayerSegment from "./Objects/PlayerSegment.js";
 import Player from "./Player.js";
 
 const WALL = '#';
@@ -94,7 +93,6 @@ export default class Level {
           case 'o':
             this.start = [j, i];
             this.grid[i][j].push(new Soil());
-            this.grid[i][j].push(new PlayerSegment());
             break;
           case 'g':
             this.goal = [j, i];
@@ -111,6 +109,41 @@ export default class Level {
     }
   }
 
+  objectsAtPos(pos) {
+    return this.grid[pos[1]][pos[0]];
+  }
+
+  posIsSoil(pos) {
+    for (const obj of this.objectsAtPos(pos))
+      if (obj instanceof Soil)
+        return true;
+    return false;
+  }
+
+  posIsSolid(pos) {
+    for (const obj of this.objectsAtPos(pos))
+      if (obj.solid)
+        return true;
+    return false;
+  }
+
+  posIsPushable(pos) {
+    for (const obj of this.objectsAtPos(pos))
+      if (obj.pushable)
+        return true;
+    return false;
+  }
+
+  removeObject(pos, obj) {
+    let i = this.grid[pos[1]][pos[0]].indexOf(obj);
+    if (i != -1)
+      this.grid[pos[1]][pos[0]].splice(i, 1);
+  }
+
+  addObject(pos, obj) {
+    this.grid[pos[1]][pos[0]].push(obj);
+  }
+
   update() {
     this.player.update();
   }
@@ -118,6 +151,8 @@ export default class Level {
   render(ctx) {
     for (let y = 0; y < this.grid.length; y++) {
       for (let x = 0; x < this.grid[y].length; x++) {
+        if (window.sprites["Concrete"] != undefined)
+          ctx.drawImage(window.sprites["Concrete"], x * 32, y * 32, 32, 32);
         for (let i = 0; i < this.grid[y][x].length; i++) {
           this.grid[y][x][i].render(ctx, [x, y]);
         }
