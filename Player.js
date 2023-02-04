@@ -19,7 +19,7 @@ export default class Player {
     this.curLength = 0;
     this.maxLength = 2;
     this.prevDir = UP;
-    let rootSegment = new PlayerSegment();
+    let rootSegment = new PlayerSegment("ROOT_S");
     this.directions = [];
     this.segments = [rootSegment];
     this.level.addObject(pos, rootSegment);
@@ -83,18 +83,113 @@ export default class Player {
     else {
       if (window.sounds["Grow"] !== undefined)
         window.sounds["Grow"].play();
+      
+      let prevPos = pos;
       this.endPos = pos;
-      let segment = new PlayerSegment();
+
+      if (this.curLength == 0) {
+        this.segments[0].segmentType = this.dirToRoot(dir);
+      }
+      else {
+        this.segments[this.segments.length-1].segmentType = this.dirToMid(dir);
+      }
+
+      let segment = new PlayerSegment(this.dirToTip(dir));
       this.level.addObject(pos, segment);
       this.segments.push(segment);
       this.directions.push(dir);
+
       this.curLength++;
+    }
+  }
+
+  dirToTip(dir) {
+    switch (dir) {
+      case UP:
+        return "U";
+      case DOWN:
+        return "D";
+      case LEFT:
+        return "L";
+      case RIGHT:
+        return "R";
+    }
+  }
+
+  dirToMid(dir) {
+    let prevDir = this.directions[this.directions.length-1];
+    switch (prevDir) {
+      case UP:
+        switch (dir) {
+          case UP:
+            return "UD";
+          case LEFT:
+            return "DL";
+          case RIGHT:
+            return "DR";
+        }
+        break;
+
+      case DOWN:
+        switch (dir) {
+          case DOWN:
+            return "UD";
+          case LEFT:
+            return "UL";
+          case RIGHT:
+            return "UR";
+        }
+        break;
+
+      case LEFT:
+        switch (dir) {
+          case UP:
+            return "UR";
+          case DOWN:
+            return "DR";
+          case LEFT:
+            return "LR";
+        }
+        break;
+
+      case RIGHT:
+        switch (dir) {
+          case UP:
+            return "UL";
+          case DOWN:
+            return "DL";
+          case RIGHT:
+            return "LR";
+        }
+        break;
+    }
+  }
+
+  dirToRoot(dir) {
+    switch (dir) {
+      case UP:
+        return "ROOT_U";
+      case DOWN:
+        return "ROOT_D";
+      case LEFT:
+        return "ROOT_L";
+      case RIGHT:
+        return "ROOT_R";
+      default:
+        return "ROOT_S";
     }
   }
 
   removeEnd() {
     if (this.curLength == 0) 
       return;
+
+    if (this.curLength == 1) {
+      this.segments[0].segmentType = this.dirToRoot("ROOT_S");
+    }
+    else {
+      this.segments[this.segments.length-2].segmentType = this.dirToTip(this.directions[this.directions.length-2]);
+    }
 
     let obj = this.segments[this.segments.length-1];
     this.level.removeObject(this.endPos, obj);
@@ -136,6 +231,9 @@ export default class Player {
       this.endPos[0] += this.directions[i][0];
       this.endPos[1] += this.directions[i][1];
     }
+
+    this.segments[0].segmentType = this.dirToRoot(this.directions[0]);
+    this.segments[this.segments.length-1].segmentType = this.dirToTip(this.directions[this.directions.length-1]);
 
     if (window.sounds["Reroot"] !== undefined)
       window.sounds["Reroot"].play();

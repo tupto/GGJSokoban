@@ -11,7 +11,7 @@ export default class GameObject {
 
   render(ctx, pos) {
     if (window.sprites[this.spriteName] !== null && window.sprites[this.spriteName] instanceof HTMLImageElement) {
-      ctx.drawImage(window.sprites[this.spriteName], pos[0] * 32, pos[1] * 32, 32, 32);
+      ctx.drawImage(window.sprites[this.spriteName], pos[0] * 64, pos[1] * 64, 64, 64);
     }
   }
 }

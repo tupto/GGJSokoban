@@ -1,8 +1,8 @@
 import Sokoban from "./Sokoban.js";
 
 var canvas = document.getElementById("canvas");
-canvas.width = 480;
-canvas.height = 480;
+canvas.width = 64*8;
+canvas.height = 64*8;
 canvas.style.border = "1px solid black";
 window.AudioContext = window.AudioContext||window.webkitAudioContext;
 
@@ -56,8 +56,8 @@ loadImage("./Assets/Soil.png").then((img) => {
 loadImage("./Assets/Wall.png").then((img) => {
   window.sprites["Wall"] = img;
 });
-loadImage("./Assets/PlayerSegment.png").then((img) => {
-  window.sprites["PlayerSegment"] = img;
+loadImage("./Assets/Player.png").then((img) => {
+  window.sprites["Player"] = img;
 });
 loadImage("./Assets/Concrete.png").then((img) => {
   window.sprites["Concrete"] = img;
@@ -78,6 +78,10 @@ loadAudio("./Assets/LevelComplete.wav").then((snd) => {
 loadAudio("./Assets/Reroot.wav").then((snd) => {
   window.sounds["Reroot"] = snd;
 });
+loadAudio("./Assets/Fertilised.wav").then((snd) => {
+  window.sounds["Fertilised"] = snd;
+});
+
 
 var prevTime = Date.now();
 

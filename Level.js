@@ -159,7 +159,7 @@ export default class Level {
     for (let y = 0; y < this.grid.length; y++) {
       for (let x = 0; x < this.grid[y].length; x++) {
         if (window.sprites["Concrete"] != undefined)
-          ctx.drawImage(window.sprites["Concrete"], x * 32, y * 32, 32, 32);
+          ctx.drawImage(window.sprites["Concrete"], x * 64, y * 64, 64, 64);
         for (let i = 0; i < this.grid[y][x].length; i++) {
           this.grid[y][x][i].render(ctx, [x, y]);
         }
