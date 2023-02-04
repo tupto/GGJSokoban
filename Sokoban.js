@@ -29,7 +29,13 @@ export default class Sokoban {
   }
 
   update() {
-    this.level.update();
+    let complete = this.level.update();
+
+    if (complete) {
+      if (window.sounds["LevelComplete"] !== undefined)
+        window.sounds["LevelComplete"].play();
+      this.level = new Level(LEVEL_ONE);
+    }
   }
   
   render() {

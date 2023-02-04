@@ -5,7 +5,7 @@ export default class GameObject {
     this.spriteName = spriteName;
   }
 
-  onTouch(other) {
+  onTouch(level, pos) {
 
   }
 

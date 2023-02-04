@@ -3,6 +3,7 @@ import Soil from "./Objects/Soil.js";
 import Fertiliser from "./Objects/Fertiliser.js";
 import Goal from "./Objects/Goal.js";
 import Player from "./Player.js";
+import PlayerSegment from "./Objects/PlayerSegment.js";
 
 const WALL = '#';
 const EMPTY = ' ';
@@ -20,6 +21,7 @@ export default class Level {
     this.grid = [];
     this.fromString(levelText);
     this.player = new Player(this, this.start);
+    this.complete = false;
   }
   
   canRoot(pos) {
@@ -141,11 +143,16 @@ export default class Level {
   }
 
   addObject(pos, obj) {
+    if (obj instanceof PlayerSegment)
+      for (let i = 0; i < this.grid[pos[1]][pos[0]].length; i++)
+        this.grid[pos[1]][pos[0]][0].onTouch(this, pos);
+            
     this.grid[pos[1]][pos[0]].push(obj);
   }
 
   update() {
     this.player.update();
+    return this.complete;
   }
 
   render(ctx) {
