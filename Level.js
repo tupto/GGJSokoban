@@ -93,6 +93,7 @@ export default class Level {
             break;
           case 'o':
             this.start = [j, i];
+            this.grid[i][j].push(new Soil());
             this.grid[i][j].push(new PlayerSegment());
             break;
           case 'g':
