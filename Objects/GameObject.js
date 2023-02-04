@@ -1,8 +1,5 @@
-import GameObject from "./GameObject.js";
-
 export default class GameObject {
-  constructor(pos, solid, pushable, spriteName) {
-    this.pos = pos;
+  constructor(solid, pushable, spriteName) {
     this.solid = solid;
     this.pushable = pushable;
     this.spriteName = spriteName;
@@ -12,9 +9,9 @@ export default class GameObject {
 
   }
 
-  render(ctx) {
-    if (window.sprites[spriteName] !== null) {
-      ctx.drawImage(window.sprites[spriteName], this.pos[0] * 32, this.pos[1] * 32, 32, 32);
+  render(ctx, pos) {
+    if (window.sprites[this.spriteName] !== null && window.sprites[this.spriteName] instanceof HTMLImageElement) {
+      ctx.drawImage(window.sprites[this.spriteName], pos[0] * 32, pos[1] * 32, 32, 32);
     }
   }
 }

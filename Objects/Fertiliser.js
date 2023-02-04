@@ -2,8 +2,8 @@ import GameObject from "./GameObject.js";
 import Player from "./PlayerSegment.js";
 
 export default class Fertiliser extends GameObject {
-  constructor(pos) {
-    super(pos, false, false, "Fertiliser");
+  constructor() {
+    super(false, false, "Fertiliser");
   }
 
   onTouch(other) {
