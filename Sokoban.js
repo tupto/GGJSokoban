@@ -5,6 +5,17 @@ const RIGHT = 1;
 const DOWN = 2;
 const LEFT = 3;
 
+const LEVEL_ZERO =
+"fffff      \n"+
+"fffff      \n"+
+"fffff      \n"+
+"fffff      \n"+
+"fffff      \n"+
+"fffff      \n"+
+"fffff      \n"+
+"fffff      \n"+
+"o          ";
+
 const LEVEL_ONE =
 "           \n"+
 "           \n"+
@@ -74,6 +85,7 @@ const LEVEL_FIVE =
 
 
 const LEVELS = [
+  LEVEL_ZERO,
   LEVEL_ONE,
   WINDY_LEVEL,
   LEVEL_TWO,

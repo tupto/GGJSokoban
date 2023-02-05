@@ -37,6 +37,7 @@ function loadAudio(fileName) {
 
     snd.onloadeddata = (e) => {
       snd.volume = 0.5;
+      snd.muted = document.getElementById("mute").checked;
       resolve(snd);
     }
     snd.onerror = (e) => { throw(e); }
@@ -122,3 +123,17 @@ function updateGame() {
 }
 
 window.setInterval((updateGame), 1000 / 60);
+
+function setMute(val) {
+  for (const snd of Object.values(window.sounds)) {
+    snd.muted = val;
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  let muteEl = document.getElementById("mute");
+  setMute (muteEl.checked);
+  muteEl.addEventListener("change", (e) => {
+    setMute(e.currentTarget.checked);
+  });
+});

@@ -1,16 +1,41 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <script type="module" src="Main.js"></script>
-        <title>Sokoplant</title>
-    </head>
-    <body>
-        <canvas id="canvas"></canvas>
-        <p>Grow and root yourself in new soil to reach the flag.</p>
-        <ul>
-            <li>WASD - Move</li>
-            <li>R - Root</li>
-            <li>Q - Reset</li>
-        </ul>
-    </body>
+  <head>
+    <style>
+      canvas {
+        display: inline-block;
+      }
+      #mute {
+        display:none;
+      }
+      #mute + label {
+        background-image: url("./Assets/Unmuted.png");
+        height: 64px;
+        width: 128px;
+        display:inline-block;
+        padding: 0 0 0 0px;
+      }
+      #mute:checked + label {
+        background-image: url("./Assets/Muted.png");
+        height: 64px;
+        width: 128px;
+        display:inline-block;
+        padding: 0 0 0 0px;
+      }
+    </style>
+    <script type="module" src="Main.js"></script>
+    <title>Sokoplant</title>
+  </head>
+  <body>
+    <div id="game">
+      <canvas id="canvas"></canvas>
+      <input id="mute" type="checkbox"><label for="mute"></label>
+      <p>Grow and root yourself in new soil to reach the flag.</p>
+      <ul>
+        <li>WASD - Move</li>
+        <li>R - Root</li>
+        <li>Q - Reset</li>
+      </ul>
+    </div>
+  </body>
 </html>
