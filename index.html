@@ -3,24 +3,28 @@
   <head>
     <style>
       canvas {
-        display: inline-block;
+        display: block;
+        margin:auto;
       }
       #mute {
         display:none;
+        clear: left;
       }
       #mute + label {
         background-image: url("./Assets/Unmuted.png");
         height: 64px;
         width: 128px;
-        display:inline-block;
+        display:block;
         padding: 0 0 0 0px;
+        margin:auto;
       }
       #mute:checked + label {
         background-image: url("./Assets/Muted.png");
         height: 64px;
         width: 128px;
-        display:inline-block;
+        display:block;
         padding: 0 0 0 0px;
+        margin:auto;
       }
     </style>
     <script type="module" src="Main.js"></script>
