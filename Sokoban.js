@@ -127,7 +127,6 @@ const LEVEL_NINE =
 "ssssssssssg";
 
 const LEVELS = [
-  LEVEL_FIVE,
   LEVEL_ONE,
   LEVEL_TWO,
   LEVEL_THREE,
