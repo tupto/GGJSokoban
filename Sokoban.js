@@ -82,6 +82,17 @@ const LEVEL_FIVE =
 ".b........b\n"+
 ".bbbbbBbbbb";
 
+const LEVEL_SIX = 
+"      bbbb \n"+
+"      b  b \n"+
+"    oDbDrb \n"+
+"      b  b \n"+
+"      b  b \n"+
+"      s  b \n"+
+"    .    Wf\n"+
+"    f     f\n"+
+"g          ";
+
 const LEVEL_SEVEN = 
 "oDDDDDDDD  \n"+
 "rrr  DDD   \n"+
@@ -102,6 +113,8 @@ const LEVELS = [
   LEVEL_FOUR,
   LEVEL_FIVE,
   WINDY_LEVEL,
+  LEVEL_SIX,
+  LEVEL_SEVEN,
 ];
 
 const RESET_KEY = 81;
