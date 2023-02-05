@@ -36,10 +36,7 @@ export default class Level {
     let nextPos = [x + dirX, y + dirY];
     
     // Check if move is within bounds of the grid
-    if (curPos[0] < 0 || curPos[0] >= this.grid[0].length ||
-        curPos[1] < 0 || curPos[1] >= this.grid.length ||
-        nextPos[0] < 0 || nextPos[0] >= this.grid[0].length ||
-        nextPos[1] < 0 || nextPos[1] >= this.grid.length) {
+    if (!this.inBounds(curPos) || !this.inBounds(nextPos)) {
       return false;
     }
     
@@ -149,7 +146,7 @@ export default class Level {
   }
 
   inBounds(pos) {
-    return !(pos[1] < 0 || pos[1] >= this.grid.length || pos[0] < 0 || pos[0] >= this.grid[0].length);
+    return !(pos[1] < 0 || pos[1] >= this.grid.length || pos[0] < 0 || pos[0] >= this.grid[0].length-1);
   }
 
   objectsAtPos(pos) {
