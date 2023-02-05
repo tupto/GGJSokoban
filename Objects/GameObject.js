@@ -3,9 +3,14 @@ export default class GameObject {
     this.solid = solid;
     this.pushable = pushable;
     this.spriteName = spriteName;
+    this.z = 0;
   }
 
   onTouch(level, pos) {
+
+  }
+
+  onMove(level, from, to) {
 
   }
 

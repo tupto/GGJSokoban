@@ -3,15 +3,12 @@ import Soil from "./Objects/Soil.js";
 import Fertiliser from "./Objects/Fertiliser.js";
 import Goal from "./Objects/Goal.js";
 import Rock from "./Objects/Rock.js";
+import Water from "./Objects/Water.js";
+import Sand from "./Objects/Sand.js";
+import Riverbed from "./Objects/Riverbed.js";
 import Player from "./Player.js";
 import PlayerSegment from "./Objects/PlayerSegment.js";
 
-const WALL = '#';
-const EMPTY = ' ';
-const START = 's';
-const GOAL = 'g';
-const DIRT = '.';
-const FERTILISER = 'f';
 
 export default class Level {
   constructor(levelText) {
@@ -57,7 +54,7 @@ export default class Level {
     }
 
     if (this.posIsPushable(nextPos)) {
-      if (!push(curPos, dir)) {
+      if (!this.push(nextPos, dir)) {
         return false;
       }
     }
@@ -71,10 +68,10 @@ export default class Level {
     });
     this.grid[nextPos[1]][nextPos[0]] = this.grid[nextPos[1]][nextPos[0]].concat(pushables);
     
-    // Update grid with new player position
-    //this.grid[y][x] = " ";
-    //this.grid[y + dirY][x + dirX] = "@";
-    
+    for (const obj of pushables) {
+      obj.onMove(this, pos, nextPos);
+    }
+
     return true;
   }
 
@@ -111,8 +108,36 @@ export default class Level {
           case 'r':
             this.grid[i][j].push(new Rock());
             break;
+          case 'R':
+            this.grid[i][j].push(new Soil());
+            this.grid[i][j].push(new Rock());
+            break;
           case 'D':
             this.grid[i][j].push(new Fertiliser());
+            this.grid[i][j].push(new Rock());
+            break;
+          case 'w':
+            this.grid[i][j].push(new Water());
+            break;
+          case 'W':
+            this.grid[i][j].push(new Water());
+            let rock = new Rock();
+            rock.onWater = true;
+            this.grid[i][j].push(rock);
+            break;
+          case 'b':
+            this.grid[i][j].push(new Riverbed());
+            break;
+          case 'B':
+            this.grid[i][j].push(new Riverbed());
+            this.grid[i][j].push(new Rock());
+            break;
+          case 'x':
+            this.grid[i][j].push(new Sand());
+            console.log("sandy!")
+            break;
+          case 'X':
+            this.grid[i][j].push(new Sand());
             this.grid[i][j].push(new Rock());
             break;
         }
@@ -173,6 +198,10 @@ export default class Level {
       for (let x = 0; x < this.grid[y].length; x++) {
         if (window.sprites["Concrete"] != undefined)
           ctx.drawImage(window.sprites["Concrete"], x * 64, y * 64, 64, 64);
+        
+        this.grid[y][x].sort((a,b) => {
+          return a.z - b.z;
+        });
         for (let i = 0; i < this.grid[y][x].length; i++) {
           this.grid[y][x][i].render(ctx, [x, y]);
         }

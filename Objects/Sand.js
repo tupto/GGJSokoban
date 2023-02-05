@@ -1,8 +1,8 @@
 import GameObject from "./GameObject.js";
 
-export default class Soil extends GameObject {
+export default class Sand extends GameObject {
   constructor() {
-    super(false, false, "Soil");
+    super(false, false, "Sand");
     this.z = -1;
   }
 }

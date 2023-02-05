@@ -35,17 +35,28 @@ export default class Player {
     let canExtend = this.curLength < this.maxLength;
     if ((UP_KEY in window.pressedKeys) && window.pressedKeys[UP_KEY]%20 == 0) {
       if (prevDir == DOWN)
-      this.removeEnd();
+        this.removeEnd();
       else if (canExtend) {
         this.attemptMove(UP);
+      }
+      else {
+        if (window.sounds["Bump"] !== undefined) {
+          window.sounds["Bump"].currentTime = 0;
+          window.sounds["Bump"].play();
+        }
       }
     }
 
     else if ((DOWN_KEY in window.pressedKeys) && window.pressedKeys[DOWN_KEY]%20 == 0) {
       if (prevDir == UP)
         this.removeEnd();
-      else if (canExtend) {
+      else if (canExtend)
         this.attemptMove(DOWN);
+      else {
+        if (window.sounds["Bump"] !== undefined) {
+          window.sounds["Bump"].currentTime = 0;
+          window.sounds["Bump"].play();
+        }
       }
     }
 
@@ -54,13 +65,24 @@ export default class Player {
         this.removeEnd();
       else if (canExtend)
         this.attemptMove(LEFT);
+      else {
+        if (window.sounds["Bump"] !== undefined) {
+          window.sounds["Bump"].currentTime = 0;
+          window.sounds["Bump"].play();
+        }
+      }
     }
 
     if ((RIGHT_KEY in window.pressedKeys) && window.pressedKeys[RIGHT_KEY]%20 == 0) {
-      if (prevDir == LEFT) {
+      if (prevDir == LEFT)
         this.removeEnd();
-      } else if (canExtend) {
+      else if (canExtend)
         this.attemptMove(RIGHT);
+      else {
+        if (window.sounds["Bump"] !== undefined) {
+          window.sounds["Bump"].currentTime = 0;
+          window.sounds["Bump"].play();
+        }
       }
     }
 
@@ -92,7 +114,7 @@ export default class Player {
           return false;
         }
 
-      if (window.sounds["Grow"] !== undefined) {
+      if (window.sounds["Grow"] !== undefined && !(window.sounds["Fertilised"].duration > 0 && !window.sounds["Fertilised"].paused)) {
         window.sounds["Grow"].currentTime = 0;
         window.sounds["Grow"].play();
       }

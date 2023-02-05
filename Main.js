@@ -1,8 +1,8 @@
 import Sokoban from "./Sokoban.js";
 
 var canvas = document.getElementById("canvas");
-canvas.width = 64*8;
-canvas.height = 64*8;
+canvas.width = 64*11;
+canvas.height = 64*9;
 canvas.style.border = "1px solid black";
 window.AudioContext = window.AudioContext||window.webkitAudioContext;
 
@@ -35,7 +35,8 @@ function loadAudio(fileName) {
   return new Promise((resolve, reject) => {
     var snd = new Audio();
 
-    snd.onloadeddata = (e) => { 
+    snd.onloadeddata = (e) => {
+      snd.volume = 0.5;
       resolve(snd);
     }
     snd.onerror = (e) => { throw(e); }
@@ -64,6 +65,18 @@ loadImage("./Assets/Concrete.png").then((img) => {
 });
 loadImage("./Assets/Rock.png").then((img) => {
   window.sprites["Rock"] = img;
+});
+loadImage("./Assets/VictoryScreen.png").then((img) => {
+  window.sprites["Victory"] = img;
+});
+loadImage("./Assets/Water.png").then((img) => {
+  window.sprites["Water"] = img;
+});
+loadImage("./Assets/Riverbed.png").then((img) => {
+  window.sprites["Riverbed"] = img;
+});
+loadImage("./Assets/Sand.png").then((img) => {
+  window.sprites["Sand"] = img;
 });
 
 loadAudio("./Assets/Bump.wav").then((snd) => {
