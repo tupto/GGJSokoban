@@ -6,7 +6,7 @@ const DOWN = 2;
 const LEFT = 3;
 
 const LEVEL_ZERO =
-"fffff      \n"+
+"fffff     g\n"+
 "fffff      \n"+
 "fffff      \n"+
 "fffff      \n"+
@@ -19,12 +19,12 @@ const LEVEL_ZERO =
 const LEVEL_ONE =
 "           \n"+
 "           \n"+
-"    o      \n"+
 "           \n"+
 "           \n"+
-"    .  g   \n"+
+"  o        \n"+
 "           \n"+
 "           \n"+
+"  .  g     \n"+
 "           ";
 
 const WINDY_LEVEL = 
@@ -61,6 +61,28 @@ const LEVEL_THREE =
 "f          ";
 
 const LEVEL_FOUR = 
+"           \n"+
+"        g  \n"+
+"           \n"+
+"           \n"+
+"  oW       \n"+
+"  fb       \n"+
+"  fBbbbbs  \n"+
+"    s      \n"+
+"           ";
+
+const LEVEL_FIVE =
+"##g#wWbbbbbb\n"+
+"## #......b\n"+
+"## #......b\n"+
+"obs#......b\n"+
+".B##......B\n"+
+".b##......b\n"+
+".b##......b\n"+
+".b........b\n"+
+".bbbbbBbbbb";
+
+const LEVEL_SEVEN = 
 "oDDDDDDDD  \n"+
 "rrr  DDD   \n"+
 "r rRDrrr   \n"+
@@ -71,27 +93,15 @@ const LEVEL_FOUR =
 "rrrr rrr  r\n"+
 " rrrrrrr  g";
 
-const LEVEL_FIVE = 
-"           \n"+
-"        g  \n"+
-"           \n"+
-"           \n"+
-"  oW       \n"+
-"  fb       \n"+
-"  fBbbbbx  \n"+
-"    x      \n"+
-"           ";
-
 
 
 const LEVELS = [
-  LEVEL_ZERO,
   LEVEL_ONE,
-  WINDY_LEVEL,
   LEVEL_TWO,
   LEVEL_THREE,
-  LEVEL_FIVE,
   LEVEL_FOUR,
+  LEVEL_FIVE,
+  WINDY_LEVEL,
 ];
 
 const RESET_KEY = 81;
@@ -143,9 +153,20 @@ export default class Sokoban {
   }
   
   render() {
-    if (!this.win)
+    if (!this.win) {
       this.level.render(this.ctx);
-    else {
+
+      if (this.levelInd == 0) {
+        if (window.sprites["WASDKeys"] !== undefined)
+          this.ctx.drawImage(window.sprites["WASDKeys"], 250, 50);
+        if (window.sprites["RKey"] !== undefined)
+          this.ctx.drawImage(window.sprites["RKey"], 180, 350);
+      }
+      else if (this.levelInd == 2) {
+        if (window.sprites["QKey"] !== undefined)
+          this.ctx.drawImage(window.sprites["QKey"], 80, 20);
+      }
+    } else {
       this.ctx.drawImage(window.sprites["Victory"], 0, 0);
     }
   }

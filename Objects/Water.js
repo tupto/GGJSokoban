@@ -15,9 +15,13 @@ export default class Water extends GameObject {
       let dir = [i%2, (i+1)%2];
       if (i > 1)
         dir = [-dir[0], -dir[1]];
+      console.log(dir);
       
       let newPos = [pos[0]+dir[0], pos[1]+dir[1]];
       let objs = level.objectsAtPos(newPos);
+      if (objs === false)
+        continue;
+
       let rock = null;
       let bed = null;
       for (const o of objs) {

@@ -79,6 +79,15 @@ loadImage("./Assets/Riverbed.png").then((img) => {
 loadImage("./Assets/Sand.png").then((img) => {
   window.sprites["Sand"] = img;
 });
+loadImage("./Assets/WASDKeys.png").then((img) => {
+  window.sprites["WASDKeys"] = img;
+});
+loadImage("./Assets/RKey.png").then((img) => {
+  window.sprites["RKey"] = img;
+});
+loadImage("./Assets/QKey.png").then((img) => {
+  window.sprites["QKey"] = img;
+});
 
 loadAudio("./Assets/Bump.wav").then((snd) => {
   window.sounds["Bump"] = snd;

@@ -132,11 +132,10 @@ export default class Level {
             this.grid[i][j].push(new Riverbed());
             this.grid[i][j].push(new Rock());
             break;
-          case 'x':
+          case 's':
             this.grid[i][j].push(new Sand());
-            console.log("sandy!")
             break;
-          case 'X':
+          case 'S':
             this.grid[i][j].push(new Sand());
             this.grid[i][j].push(new Rock());
             break;
@@ -146,6 +145,11 @@ export default class Level {
   }
 
   objectsAtPos(pos) {
+    if (pos[1] < 0 || pos[1] >= this.grid.length || pos[0] < 0 || pos[0] >= this.grid[0].length)
+      return false;
+      
+    if (!(this.grid.length > pos[1] && this.grid[pos[1]].length > pos[0]))
+      return false;
     return this.grid[pos[1]][pos[0]];
   }
 

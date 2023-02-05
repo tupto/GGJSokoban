@@ -22,6 +22,7 @@ export default class PlayerSegment extends GameObject {
   constructor(segmentType) {
     super(true, false, "Player");
     this.segmentType = segmentType;
+    this.z = 2;
   }
 
   render(ctx, pos) {
