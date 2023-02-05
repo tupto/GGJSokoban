@@ -11,11 +11,11 @@ var game = new Sokoban(ctx);
 
 window.pressedKeys = {};
 addEventListener("keydown", (e) => {
-  if (!(e.keyCode in window.pressedKeys))
-    window.pressedKeys[e.keyCode] = 0;
+  if (!(e.code in window.pressedKeys))
+    window.pressedKeys[e.code] = 0;
 }, false);
 addEventListener("keyup", (e) => {
-  delete window.pressedKeys[e.keyCode];
+  delete window.pressedKeys[e.code];
 }, false);
 
 window.sprites = {};

@@ -79,7 +79,7 @@ const LEVEL_FIVE =
 ".B##......B\n"+
 ".b##......b\n"+
 ".b##......b\n"+
-".b........b\n"+
+".B........b\n"+
 ".bbbbbBbbbb";
 
 const LEVEL_SIX = 
@@ -104,7 +104,27 @@ const LEVEL_SEVEN =
 "rrrr rrr  r\n"+
 " rrrrrrr  g";
 
+const LEVEL_EIGHT = 
+"oDDDDDDDD  \n"+
+"rrr  DDD   \n"+
+"r rRDrrr   \n"+
+"rrrrrrr  rr\n"+
+" rrrrrrrD f\n"+
+"rrrrrrrrD D\n"+
+"rrrrrrrrf f\n"+
+"rrrr rrr  r\n"+
+" rrrrrrr  g";
 
+const LEVEL_NINE = 
+"oDDDDDDDD  \n"+
+"rrr  DDD   \n"+
+"r rRDrrr   \n"+
+"rrrrrrr  rr\n"+
+" rrrrrrrD f\n"+
+"rrrrrrrrD D\n"+
+"rrrrrrrrf f\n"+
+"rrrr rrr  r\n"+
+" rrrrrrr  g";
 
 const LEVELS = [
   LEVEL_ONE,
@@ -115,9 +135,11 @@ const LEVELS = [
   WINDY_LEVEL,
   LEVEL_SIX,
   LEVEL_SEVEN,
+  LEVEL_EIGHT,
+  LEVEL_NINE,
 ];
 
-const RESET_KEY = 81;
+const RESET_KEY = "KeyQ";
 
 export default class Sokoban {
   constructor(ctx) {

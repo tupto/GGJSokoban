@@ -1,10 +1,10 @@
 import PlayerSegment from "./Objects/PlayerSegment.js";
 
-const UP_KEY = 87;
-const DOWN_KEY = 83;
-const LEFT_KEY = 65;
-const RIGHT_KEY = 68;
-const ROOT_KEY = 82;
+const UP_KEY = "KeyW";
+const DOWN_KEY = "KeyS";
+const LEFT_KEY = "KeyA";
+const RIGHT_KEY = "KeyD";
+const ROOT_KEY = "KeyR";
 
 const UP = [0,-1];
 const DOWN = [0,1];
