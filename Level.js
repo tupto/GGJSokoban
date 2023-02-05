@@ -146,11 +146,11 @@ export default class Level {
   }
 
   inBounds(pos) {
-    return !(pos[1] < 0 || pos[1] >= this.grid.length || pos[0] < 0 || pos[0] >= this.grid[0].length-1);
+    return !(pos[1] < 0 || pos[1] >= this.grid.length || pos[0] < 0 || pos[0] >= this.grid[pos[1]].length);
   }
 
   objectsAtPos(pos) {
-    if (pos[1] < 0 || pos[1] >= this.grid.length || pos[0] < 0 || pos[0] >= this.grid[0].length)
+    if (!this.inBounds(pos))
       return false;
 
     if (!(this.grid.length > pos[1] && this.grid[pos[1]].length > pos[0]))

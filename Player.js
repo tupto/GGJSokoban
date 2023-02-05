@@ -138,6 +138,7 @@ export default class Player {
       this.directions.push(dir);
 
       this.curLength++;
+      console.log(this.curLength + " / " + this.maxLength);
     }
   }
 
