@@ -74,11 +74,11 @@ const LEVEL_FIVE =
 
 
 const LEVELS = [
-  LEVEL_FIVE,
   LEVEL_ONE,
   WINDY_LEVEL,
   LEVEL_TWO,
   LEVEL_THREE,
+  LEVEL_FIVE,
   LEVEL_FOUR,
 ];
 
@@ -100,12 +100,20 @@ export default class Sokoban {
 
   update() {
     if (RESET_KEY in window.pressedKeys && window.pressedKeys[RESET_KEY]%20 == 0) {
+      if (this.win) {
+        this.levelInd = 0;
+        this.win = false;
+      }
+      
       this.level = new Level(LEVELS[this.levelInd]);
       if (window.sounds["Reset"] !== undefined) {
         window.sounds["Reset"].currentTime = 0;
         window.sounds["Reset"].play();
       }
     }
+
+    if (this.win)
+      return;
 
     let complete = this.level.update();
 
