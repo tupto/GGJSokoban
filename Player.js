@@ -94,6 +94,9 @@ export default class Player {
   attemptMove(dir) {
     let pos = [dir[0] + this.endPos[0], dir[1] + this.endPos[1]];
     
+    if (!this.level.inBounds(pos))
+      return false;
+
     let solid = this.level.posIsSolid(pos);
     let pushable = this.level.posIsPushable(pos);
 

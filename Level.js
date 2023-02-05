@@ -139,9 +139,17 @@ export default class Level {
             this.grid[i][j].push(new Sand());
             this.grid[i][j].push(new Rock());
             break;
+          case 'C':
+            this.grid[i][j].push(new Sand());
+            this.grid[i][j].push(new Fertiliser());
+            break;
         }
       }
     }
+  }
+
+  inBounds(pos) {
+    return !(pos[1] < 0 || pos[1] >= this.grid.length || pos[0] < 0 || pos[0] >= this.grid[0].length);
   }
 
   objectsAtPos(pos) {
@@ -154,22 +162,34 @@ export default class Level {
   }
 
   posIsSoil(pos) {
-    for (const obj of this.objectsAtPos(pos))
+    let objects = this.objectsAtPos(pos);
+    if (objects === false)
+      return false;
+
+    for (const obj of objects)
       if (obj instanceof Soil)
         return true;
     return false;
   }
 
   posIsSolid(pos) {
-    for (const obj of this.objectsAtPos(pos))
+    let objects = this.objectsAtPos(pos);
+    if (objects === false)
+      return false;
+
+    for (const obj of objects)
       if (obj.solid)
         return true;
     return false;
   }
 
   posIsPushable(pos) {
+    let objects = this.objectsAtPos(pos);
+    if (objects === false)
+      return false;
+
     let pushable = false;
-    for (const obj of this.objectsAtPos(pos)) {
+    for (const obj of objects) {
       if (obj.pushable)
         pushable = true;
       else if (obj.solid)
@@ -187,7 +207,7 @@ export default class Level {
   addObject(pos, obj) {
     if (obj instanceof PlayerSegment)
       for (let i = 0; i < this.grid[pos[1]][pos[0]].length; i++)
-        this.grid[pos[1]][pos[0]][0].onTouch(this, pos);
+        this.grid[pos[1]][pos[0]][i].onTouch(this, pos);
             
     this.grid[pos[1]][pos[0]].push(obj);
   }

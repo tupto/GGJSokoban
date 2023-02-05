@@ -105,26 +105,26 @@ const LEVEL_SEVEN =
 " rrrrrrr  g";
 
 const LEVEL_EIGHT = 
-"oDDDDDDDD  \n"+
-"rrr  DDD   \n"+
-"r rRDrrr   \n"+
-"rrrrrrr  rr\n"+
-" rrrrrrrD f\n"+
-"rrrrrrrrD D\n"+
-"rrrrrrrrf f\n"+
-"rrrr rrr  r\n"+
-" rrrrrrr  g";
+"           \n"+
+". f WBBBbbb\n"+
+"   .      b\n"+
+"          b\n"+
+"o   s   g b\n"+
+"    b     b\n"+
+"    Brrrrrb\n"+
+". f bbbbbbb\n"+
+"           ";
 
 const LEVEL_NINE = 
-"oDDDDDDDD  \n"+
-"rrr  DDD   \n"+
-"r rRDrrr   \n"+
-"rrrrrrr  rr\n"+
-" rrrrrrrD f\n"+
-"rrrrrrrrD D\n"+
-"rrrrrrrrf f\n"+
-"rrrr rrr  r\n"+
-" rrrrrrr  g";
+" sssssssssC\n"+
+"oWbbbbbbbbb\n"+
+" r########b\n"+
+" r########b\n"+
+" r########b\n"+
+"sBbbbbbbbbb\n"+
+"sb#########\n"+
+"sbbbbbbbbb#\n"+
+"ssssssssssg";
 
 const LEVELS = [
   LEVEL_ONE,
